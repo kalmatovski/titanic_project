@@ -13,8 +13,6 @@ This is part of my ML learning journey, focusing on:
 - evaluation
 - project structure
 
----
-
 ## Features Used
 
 - Pclass

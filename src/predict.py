@@ -1,33 +1,41 @@
 import pandas as pd
 import joblib
 
-def main():
-    model_path = 'models/model.joblib'
 
-    #1 Load Model 
+def main():
+    model_path = "models/model.joblib"
+
     model = joblib.load(model_path)
 
-    #Create new data 
-    data = {
-        'Pclass':[3],
-        'Sex' : ['female'],
-        'Age' : [30],
-        'Fare' : [100],
-        'Embarked' : ['S'],
-    }
+    
+    passenger = {
+    "Pclass": [1],
+    "Sex": ["female"],
+    "Age": [30],
+    "Fare": [100],
+    "Embarked": ["C"]
+}
 
-    df = pd.DataFrame(data)
 
-    # Predict
+    passenger_df = pd.DataFrame(passenger)
 
-    prediction = model.predict(df)
+    prediction = model.predict(passenger_df)
+    probabilities = model.predict_proba(passenger_df)
 
-    print("Prediction: ", prediction[0])
+    survival_probability = probabilities[0][1]
+
+    print("Passenger data:")
+    print(passenger_df)
+    print()
+
+    print(f"Prediction: {prediction[0]}")
+    print(f"Survival probability: {survival_probability:.2%}")
 
     if prediction[0] == 1:
-        print("Survived")
+        print("Result: Survived")
     else:
-        print("Sorry buddy")
-    
+        print("Result: Did not survive")
+
+
 if __name__ == "__main__":
     main()

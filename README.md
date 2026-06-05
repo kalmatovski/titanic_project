@@ -455,6 +455,10 @@ Planned improvements:
 - Compare model performance
 - Improve README with more examples
 - Add more detailed project documentation
+- Add ROC-AUC evaluation
+- Add confusion matrix visualization
+- Add StandardScaler for numerical features if needed
+- Try Random Forest and compare with Logistic
 
 ---
 

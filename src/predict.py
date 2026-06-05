@@ -44,9 +44,9 @@ def print_result(passenger_df, predicted_class,survival_probability):
     print()
 
     if predicted_class == 1:
-        print("Survived yahoo")
+        print("Result: Survived")
     else:
-        print("Sorry buddy, u gon die")
+        print("Result: Did not survive")
 
 def main():
     model = load_model(MODEL_PATH)

@@ -74,7 +74,7 @@ def evaluate_model(model,X_test,y_test):
 
     print(f"Accuracy: {accuracy:.4f}")
     print()
-    print('Classfication Report')
+    print('Classification Report')
     print(classification_report(y_test,y_pred))
 
 

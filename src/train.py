@@ -3,12 +3,12 @@ import joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, roc_auc_score
 
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 DATA_PATH = 'data/train.csv'
 MODEL_PATH = 'models/model.joblib'
@@ -32,7 +32,12 @@ def prepare_features_and_target(df):
 
 def build_pipeline():
     # Build sklearn Pipeline with preprocessing and Logistic Regression model
-    num_transformer = SimpleImputer(strategy='median')
+    num_transformer = Pipeline(
+        steps=[
+            ('imputer', SimpleImputer(strategy='median')),
+            ('scaler', StandardScaler())
+        ]
+    )
 
     cat_transformer = Pipeline(
         steps=[
@@ -69,10 +74,13 @@ def evaluate_model(model,X_test,y_test):
     #Evaluate model using accuracy and classification report
 
     y_pred = model.predict(X_test)
+    y_proba = model.predict_proba(X_test)[:,1]
 
     accuracy = accuracy_score(y_test, y_pred)
+    roc_auc = roc_auc_score(y_test,y_proba)
 
     print(f"Accuracy: {accuracy:.4f}")
+    print(f"ROC-AUC: {roc_auc:.4f}")
     print()
     print('Classification Report')
     print(classification_report(y_test,y_pred))

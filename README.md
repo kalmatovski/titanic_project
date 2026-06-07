@@ -115,6 +115,22 @@ SimpleImputer(strategy="median")
 
 Median is used because it is more robust to outliers than mean.
 
+After missing value imputation, numerical features are scaled using:
+
+```python
+StandardScaler()
+```
+
+The numerical preprocessing pipeline:
+
+```python
+SimpleImputer(strategy="median")
+↓
+StandardScaler()
+```
+
+StandardScaler helps put numerical features on a similar scale, which is useful for models such as Logistic Regression.
+
 ### Categorical Features
 
 For categorical columns:
@@ -214,11 +230,13 @@ The model is evaluated using:
 - recall
 - f1-score
 - support
+- ROC-AUC
 
 Current result:
 
 ```text
 Accuracy: 0.7765
+ROC-AUC: 0.7966
 ```
 
 Classification report:
